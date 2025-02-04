@@ -7,4 +7,4 @@ add_library(common ${SOURCES})
 target_include_directories(common PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}> $<INSTALL_INTERFACE:include>)
 
 
-target_link_libraries(common PUBLIC compiler_flags)
+target_link_libraries(common PUBLIC compiler_flags sfml-system sfml-graphics sfml-audio sfml-window)
