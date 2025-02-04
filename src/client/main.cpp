@@ -1,4 +1,4 @@
-#include "ecs/World.hpp"
+#include "MyWorld.hpp"
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
 #include <SFML/Window/VideoMode.hpp>
@@ -10,12 +10,14 @@
 int main(int argc, char *argv[]) {
 
   sf::RenderWindow renderWindow(sf::VideoMode(800, 600), "BomberType");
-  ecs::World world;
+  MyWorld world;
 
   // 16ms for ~60 updates per second
   constexpr std::chrono::milliseconds updateIntervals(16);
   auto previousTime = std::chrono::high_resolution_clock::now();
 
+  renderWindow.setFramerateLimit(60);
+  world.init();
   while (renderWindow.isOpen()) {
     sf::Event event;
     while (renderWindow.pollEvent(event)) {

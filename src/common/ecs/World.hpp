@@ -13,7 +13,7 @@ public:
 
   void render(sf::RenderWindow &window);
 
-private:
+protected:
   EntityManager m_entityManager;
   SystemManager m_systemManager;
 };
