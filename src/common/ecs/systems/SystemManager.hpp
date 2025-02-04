@@ -9,16 +9,16 @@ namespace ecs {
 class SystemManager {
 public:
   template <typename T, typename... Args> void addUpdateSystem(Args &&...args) {
-    static_assert(std::is_base_of<IUpdateSystem, T>::value, "T must inherit from IUpdateSystem");
+    static_assert(std::is_base_of<systems::IUpdateSystem, T>::value, "T must inherit from IUpdateSystem");
     m_updateSystems.push_back(std::make_unique<T>(std::forward<Args>(args)...));
   }
   template <typename T, typename... Args> void addEventSystem(Args &&...args) {
-    static_assert(std::is_base_of<IEventSystem, T>::value, "T must inherit from IEventSystem");
+    static_assert(std::is_base_of<systems::IEventSystem, T>::value, "T must inherit from IEventSystem");
     m_eventSystems.push_back(std::make_unique<T>(std::forward<Args>(args)...));
   }
 
   template <typename T, typename... Args> void addRenderSystem(Args &&...args) {
-    static_assert(std::is_base_of<IRenderSystem, T>::value, "T must inherit from IRenderSystem");
+    static_assert(std::is_base_of<systems::IRenderSystem, T>::value, "T must inherit from IRenderSystem");
     m_renderSystems.push_back(std::make_unique<T>(std::forward<Args>(args)...));
   }
 
@@ -41,9 +41,9 @@ public:
   }
 
 private:
-  std::vector<std::unique_ptr<IUpdateSystem>> m_updateSystems;
-  std::vector<std::unique_ptr<IEventSystem>> m_eventSystems;
-  std::vector<std::unique_ptr<IRenderSystem>> m_renderSystems;
+  std::vector<std::unique_ptr<systems::IUpdateSystem>> m_updateSystems;
+  std::vector<std::unique_ptr<systems::IEventSystem>> m_eventSystems;
+  std::vector<std::unique_ptr<systems::IRenderSystem>> m_renderSystems;
 };
 
 } // namespace ecs

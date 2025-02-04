@@ -5,6 +5,8 @@
 #include <SFML/Window/Keyboard.hpp>
 
 namespace ecs {
+namespace systems {
+
 class InputSystem : public IEventSystem {
 public:
   void handleEvent(EntityManager &entityManager, const sf::Event &event) override {
@@ -27,4 +29,6 @@ public:
     }
   }
 };
+
+} // namespace systems
 } // namespace ecs

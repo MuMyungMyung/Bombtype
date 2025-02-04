@@ -5,6 +5,8 @@
 #include "ecs/components/TransformComponent.hpp"
 
 namespace ecs {
+namespace systems {
+
 class NetworkSystem : public IUpdateSystem {
 public:
   void update(EntityManager &entityManager, float deltaTime) override {
@@ -27,4 +29,6 @@ public:
     }
   }
 };
+
+} // namespace systems
 } // namespace ecs

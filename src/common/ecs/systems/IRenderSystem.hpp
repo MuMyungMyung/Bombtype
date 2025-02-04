@@ -3,6 +3,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 
 namespace ecs {
+namespace systems {
 
 class IRenderSystem {
 public:
@@ -10,4 +11,5 @@ public:
   virtual void render(EntityManager &, sf::RenderWindow &) = 0;
 };
 
+} // namespace systems
 } // namespace ecs

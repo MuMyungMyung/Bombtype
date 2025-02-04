@@ -3,6 +3,7 @@
 #include "ecs/entities/EntityManager.hpp"
 
 namespace ecs {
+namespace systems {
 
 class IUpdateSystem {
 public:
@@ -10,4 +11,5 @@ public:
   virtual void update(EntityManager &, float) = 0;
 };
 
+} // namespace systems
 } // namespace ecs

@@ -4,6 +4,7 @@
 #include <SFML/Window/Event.hpp>
 
 namespace ecs {
+namespace systems {
 
 class IEventSystem {
 public:
@@ -11,4 +12,5 @@ public:
   virtual void handleEvent(EntityManager &, const sf::Event &) = 0;
 };
 
+} // namespace systems
 } // namespace ecs

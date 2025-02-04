@@ -6,6 +6,7 @@
 #include "ecs/components/TransformComponent.hpp"
 
 namespace ecs {
+namespace systems {
 
 class MovementSystem : public IUpdateSystem {
 public:
@@ -47,4 +48,5 @@ private:
   float m_ellapsedTime = 0;
 };
 
+} // namespace systems
 } // namespace ecs
