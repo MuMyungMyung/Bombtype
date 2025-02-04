@@ -12,22 +12,17 @@ target_compile_options(compiler_flags INTERFACE
                       "$<${gcc_like_cxx}:$<BUILD_INTERFACE:-Wall;-Wextra;-Wshadow;-Wformat=2;-Wunused>>"
                       "$<${msvc_cxx}:$<BUILD_INTERFACE:-W3>>"
                       )
+##############
+#   COMMON   #
+##############
+add_subdirectory(src/common)
 
 ##############
 #   CLIENT   #
 ##############
-
-file(GLOB_RECURSE CLIENT_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/client/*.cpp")
-add_executable(client ${CLIENT_SOURCES})
-target_link_libraries(client PUBLIC compiler_flags)
-target_link_libraries(client PRIVATE sfml-system sfml-window sfml-graphics sfml-audio)
-target_include_directories(client PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/client)
+add_subdirectory(src/client)
 
 ##############
 #   SERVER   #
 ##############
-
-file(GLOB_RECURSE SERVER_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/src/server/*.cpp")
-add_executable(server ${SERVER_SOURCES})
-target_link_libraries(server PUBLIC compiler_flags)
-target_include_directories(server PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/server)
+add_subdirectory(src/server)
