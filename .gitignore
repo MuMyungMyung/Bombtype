@@ -1,0 +1,12 @@
+# Directories
+.cache/
+build/
+out/
+release/
+debug/
+
+# Files
+*.o
+*.so
+*.a
+compile_commands.json
