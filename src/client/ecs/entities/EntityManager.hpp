@@ -12,7 +12,7 @@ public:
     return entity;
   };
 
-  template <typename... Components> std::vector<std::shared_ptr<Entity>> getEntitiesWith() {
+  template <typename... Components> [[nodiscard]] std::vector<std::shared_ptr<Entity>> getEntitiesWith() {
     std::vector<std::shared_ptr<Entity>> results;
     for (auto &entity : m_entities) {
       if (hasComponents<Components...>(entity)) {
