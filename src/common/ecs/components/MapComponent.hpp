@@ -1,26 +1,13 @@
 #pragma once
 
 #include "Component.hpp"
+#include "ecs/serialization/IntRect.hpp"
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/Graphics/RenderTexture.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <nlohmann/json.hpp>
 #include <vector>
 
-// Json impl for sf::IntRect
-namespace sf {
-inline void to_json(nlohmann::json &j, const IntRect &i) {
-  j = nlohmann::json({{"left", i.left}, {"top", i.top}, {"width", i.width}, {"height", i.height}});
-}
-
-inline void from_json(const nlohmann::json &j, IntRect &i) {
-  j.at("top").get_to(i.top);
-  j.at("left").get_to(i.left);
-  j.at("width").get_to(i.width);
-  j.at("height").get_to(i.height);
-}
-
-} // namespace sf
 namespace ecs {
 
 class MapComponent : public Component {
