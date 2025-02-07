@@ -1,5 +1,6 @@
 #pragma once
 #include "Entity.hpp"
+#include <functional>
 #include <vector>
 
 namespace ecs {
@@ -17,6 +18,20 @@ public:
     for (auto &entity : m_entities) {
       if (hasComponents<Components...>(entity)) {
         results.push_back(entity);
+      }
+    }
+    return results;
+  }
+
+  template <typename T>
+  [[nodiscard]] std::vector<std::shared_ptr<Entity>> getEntitiesWithP(std::function<bool(T *)> p) {
+    std::vector<std::shared_ptr<Entity>> results;
+    for (auto &entity : m_entities) {
+      if (hasComponents<T>(entity)) {
+        auto comp = entity->getComponent<T>();
+        if (p(comp)) {
+          results.push_back(entity);
+        }
       }
     }
     return results;

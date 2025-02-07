@@ -20,6 +20,10 @@ public:
     return ref;
   }
 
+  template <typename T> void grabComponent(std::unique_ptr<T> &ptr) {
+    m_components[std::type_index(typeid(T))] = std::move(ptr);
+  }
+
   template <typename T> T *getComponent() {
     auto it = m_components.find(std::type_index(typeid(T)));
     return it != m_components.end() ? dynamic_cast<T *>(it->second.get()) : nullptr;
