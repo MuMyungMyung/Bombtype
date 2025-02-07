@@ -10,6 +10,8 @@ class AnimationComponent : public Component {
 public:
   std::unordered_map<std::string, sf::IntRect> frames;
 
+  AnimationComponent() {
+  }
   AnimationComponent(const nlohmann::json &j)
       : frames(j.at("frames").get<std::unordered_map<std::string, sf::IntRect>>()) {
   }

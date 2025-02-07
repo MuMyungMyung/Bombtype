@@ -21,7 +21,7 @@ public:
   }
 
   template <typename T> void grabComponent(std::unique_ptr<T> &ptr) {
-    m_components[std::type_index(typeid(T))] = std::move(ptr);
+    m_components[std::type_index(typeid(*ptr))] = std::move(ptr);
   }
 
   template <typename T> T *getComponent() {

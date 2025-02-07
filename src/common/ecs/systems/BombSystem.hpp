@@ -44,7 +44,7 @@ private:
     explosion->addComponent<TransformComponent>(position->position);
     explosion->addComponent<ExplosionComponent>();
     auto animation = explosion->addComponent<AnimationComponent>();
-    auto sprite = explosion->addComponent<SpriteComponent>("assets/explosion.png");
+    auto sprite = explosion->addComponent<SpriteComponent>(std::string("assets/explosion.png"));
     sprite.sprite.setTextureRect(animation.frames.at("default"));
   }
 };

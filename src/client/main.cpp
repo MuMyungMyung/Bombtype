@@ -5,6 +5,7 @@
 #include <chrono>
 
 #include <SFML/Graphics.hpp>
+#include <iostream>
 #include <thread>
 
 int main(int argc, char *argv[]) {
@@ -18,6 +19,13 @@ int main(int argc, char *argv[]) {
 
   renderWindow.setFramerateLimit(60);
   world.init();
+  try {
+    world.loadGame("assets/entities.json");
+  } catch (const std::exception &e) {
+    std::cerr << e.what() << std::endl;
+    renderWindow.close();
+    return -1;
+  }
   while (renderWindow.isOpen()) {
     sf::Event event;
     while (renderWindow.pollEvent(event)) {

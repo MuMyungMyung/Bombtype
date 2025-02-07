@@ -5,6 +5,7 @@
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/Graphics/RenderTexture.hpp>
 #include <SFML/Graphics/Sprite.hpp>
+#include <iostream>
 #include <nlohmann/json.hpp>
 #include <vector>
 
@@ -24,7 +25,7 @@ public:
                const std::string &spriteSheetPath, int tileSize)
       : tiles(tiles), tileRects(tileRects), tileSize(tileSize) {
     renderTexture.create(tiles[0].size() * tileSize, tiles.size() * tileSize);
-    spriteSheet.loadFromFile(spriteSheetPath);
+    bool result = spriteSheet.loadFromFile(spriteSheetPath);
     sprite.setTexture(spriteSheet);
     for (int y = 0; y < tiles.size(); y++) {
       for (int x = 0; x < tiles[y].size(); x++) {
@@ -34,6 +35,11 @@ public:
       }
     }
     renderTexture.display();
+    sf::IntRect reset;
+    auto size = renderTexture.getTexture().getSize();
+    reset.width = size.x;
+    reset.height = size.y;
+    sprite.setTextureRect(reset);
     sprite.setTexture(renderTexture.getTexture());
   }
 

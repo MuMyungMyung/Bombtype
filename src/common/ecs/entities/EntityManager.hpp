@@ -37,6 +37,10 @@ public:
     return results;
   }
 
+  const std::vector<std::shared_ptr<Entity>> &getEntities() {
+    return m_entities;
+  }
+
   void removeEntity(std::shared_ptr<Entity> entity) {
     m_entities.erase(std::remove(m_entities.begin(), m_entities.end(), entity), m_entities.end());
   }
