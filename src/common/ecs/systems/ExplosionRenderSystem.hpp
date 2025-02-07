@@ -67,6 +67,7 @@ private:
       auto collision = tileEntity->getComponent<CollisionComponent>();
       if (collision && collision->isSolid) {
         sprite->sprite.setTextureRect(animation->frames.at(explosionEndString));
+        sprite->sprite.setPosition(position.x * 32, position.y * 32);
         window.draw(sprite->sprite);
         return true;
       }
@@ -78,16 +79,16 @@ private:
   }
 
   std::vector<std::shared_ptr<Entity>> getNearbyEntities(EntityManager &entityManager, TransformComponent *position,
-                                                         int radius) {
-    return entityManager.getEntitiesWithP<TransformComponent>([radius, position](TransformComponent *c) {
+                                                         int range) {
+    return entityManager.getEntitiesWithP<TransformComponent>([range, position](TransformComponent *c) {
       int cX = c->position.x;
       int cY = c->position.y;
       int x = position->position.x;
       int y = position->position.y;
 
-      if ((cX >= x - 1 && cX <= x + 1) && (cY >= y && cY <= y + radius))
+      if ((cX >= x - 1 && cX <= x + 1) && (cY >= y - range && cY <= y + range))
         return true;
-      if ((cY >= y - 1 && cY <= y - 1) && (cX >= x && cX <= x + radius))
+      if ((cY >= y - 1 && cY <= y - 1) && (cX >= x - range && cX <= x + range))
         return true;
       return false;
     });
