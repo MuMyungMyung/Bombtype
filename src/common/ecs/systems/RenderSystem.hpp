@@ -1,10 +1,14 @@
 #pragma once
 
 #include "IRenderSystem.hpp"
+#include "ecs/components/AnimationComponent.hpp"
+#include "ecs/components/BombComponent.hpp"
+#include "ecs/components/ExplosionComponent.hpp"
 #include "ecs/components/SpriteComponent.hpp"
 #include "ecs/components/TransformComponent.hpp"
 #include <SFML/Graphics/RenderTexture.hpp>
 #include <SFML/Graphics/Sprite.hpp>
+#include <iostream>
 #include <nlohmann/json.hpp>
 
 namespace ecs::systems {
@@ -17,6 +21,10 @@ public:
       auto sprite = entity->getComponent<SpriteComponent>();
       auto position = entity->getComponent<TransformComponent>();
 
+      auto animation = entity->getComponent<AnimationComponent>();
+      if (animation && !entity->getComponent<ExplosionComponent>()) {
+        sprite->sprite.setTextureRect(animation->frames.at("default"));
+      }
       sprite->sprite.setPosition(position->position.x * 32, position->position.y * 32);
       window.draw(sprite->sprite);
     }

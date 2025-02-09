@@ -10,7 +10,7 @@ namespace systems {
 class InputSystem : public IEventSystem {
 public:
   void handleEvent(EntityManager &entityManager, const sf::Event &event) override {
-    if (event.type != sf::Event::KeyReleased)
+    if (event.type != sf::Event::KeyPressed)
       return;
     auto entities = entityManager.getEntitiesWith<InputComponent>();
     for (auto &entity : entities) {

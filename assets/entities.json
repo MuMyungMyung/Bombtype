@@ -37,5 +37,31 @@
         ]
       }
     }
+  },
+  "player": {
+    "components": {
+      "InputComponent": {
+        "x": 0, "y": 0, "placeBomb": false
+      },
+      "SpriteComponent": {
+        "texturePath": "assets/bomberman.png"
+      },
+      "AnimationComponent": {
+        "frames": {"default": {"left": 0, "top": 0, "width": 32, "height": 32}}
+      },
+      "TransformComponent": {
+        "x": 1,
+        "y": 1
+      },
+      "MovementComponent": {
+        "x": 0, "y": 0, "speed": 1.5
+      },
+      "CollisionComponent": {
+        "isSolid": true
+      },
+      "PlayerComponent": {
+        "id": "localPlayer"
+      }
+    }
   }
 }

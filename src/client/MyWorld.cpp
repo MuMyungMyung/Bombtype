@@ -1,5 +1,6 @@
 #include "MyWorld.hpp"
 #include "ecs/components/AnimationComponent.hpp"
+#include "ecs/components/CollisionComponent.hpp"
 #include "ecs/components/ComponentFactory.hpp"
 #include "ecs/components/HealthComponent.hpp"
 #include "ecs/components/InputComponent.hpp"
@@ -31,6 +32,7 @@ void MyWorld::init() {
 
   compFactory.registerComponent<ecs::AnimationComponent>("AnimationComponent");
   compFactory.registerComponent<ecs::BombComponent>("BombComponent");
+  compFactory.registerComponent<ecs::CollisionComponent>("CollisionComponent");
   compFactory.registerComponent<ecs::ExplosionComponent>("ExplosionComponent");
   compFactory.registerComponent<ecs::HealthComponent>("HealthComponent");
   compFactory.registerComponent<ecs::InputComponent>("InputComponent");

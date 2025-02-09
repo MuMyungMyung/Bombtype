@@ -11,8 +11,8 @@ class NetworkSystem : public IUpdateSystem {
 public:
   void update(EntityManager &entityManager, float deltaTime) override {
     auto entities = entityManager.getEntitiesWith<NetworkComponent>();
-    // TODO 1 integrate networking and then chose to iterate over packet or entities
-    // TODO 2 refactor into private methods
+    // TODO 1 integrate networking  and then chose to iterate over packet or entities
+    // TODO 2 refactor into private  methods
     for (auto &entity : entities) {
       auto net = entity->getComponent<NetworkComponent>();
       auto transform = entity->getComponent<TransformComponent>();
