@@ -8,7 +8,6 @@
 #include "ecs/components/PlayerComponent.hpp"
 #include "ecs/components/SpriteComponent.hpp"
 #include "ecs/components/TransformComponent.hpp"
-#include <iostream>
 
 namespace ecs::systems {
 
@@ -19,7 +18,8 @@ public:
       auto input = entity->getComponent<InputComponent>();
       auto player = entity->getComponent<PlayerComponent>();
       auto position = entity->getComponent<TransformComponent>();
-      if (input->placeBomb) {
+      int totalOwnedBombs = getNbOwnedBombs(entityManager, player->id);
+      if (input->placeBomb && totalOwnedBombs <= 0) {
         auto bombEntity = entityManager.createEntity();
         bombEntity->addComponent<BombComponent>(player->id);
         auto &animation = bombEntity->addComponent<AnimationComponent>();
@@ -73,6 +73,18 @@ private:
     animation.frames["horizontal"] = sf::IntRect(0, 0, 32, 32);
     auto sprite = explosion->addComponent<SpriteComponent>(std::string("assets/explosion.png"));
     sprite.sprite.setTextureRect(animation.frames.at("default"));
+  }
+
+  int getNbOwnedBombs(EntityManager &entityManager, const std::string &playerId) {
+    int total = 0;
+    auto entities = entityManager.getEntitiesWith<BombComponent>();
+
+    for (auto &entity : entities) {
+      auto bomb = entity->getComponent<BombComponent>();
+      if (bomb->ownerId == playerId)
+        total++;
+    }
+    return total;
   }
 };
 } // namespace ecs::systems

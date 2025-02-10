@@ -8,6 +8,7 @@
 #include "ecs/components/MovementComponent.hpp"
 #include "ecs/components/NetworkComponent.hpp"
 #include "ecs/components/PlayerComponent.hpp"
+#include "ecs/components/TransformComponent.hpp"
 #include "ecs/systems/BombSystem.hpp"
 #include "ecs/systems/ExplosionRenderSystem.hpp"
 #include "ecs/systems/ExplosionSystem.hpp"
@@ -68,5 +69,21 @@ void MyWorld::loadGame(const std::string &filepath) {
       auto component = factory.createComponent(compName, compData);
       entity->grabComponent(component);
     }
+  }
+
+  auto entities = m_entityManager.getEntitiesWith<ecs::MapComponent>();
+  for (auto &entity : entities) {
+    auto map = entity->getComponent<ecs::MapComponent>();
+
+    for (int y = 0; y < map->tiles.size(); y++) {
+      for (int x = 0; x < map->tiles[y].size(); x++) {
+        if (map->tiles[y][x] == 0) {
+          auto wallEntity = m_entityManager.createEntity();
+          wallEntity->addComponent<ecs::CollisionComponent>();
+          wallEntity->addComponent<ecs::TransformComponent>(sf::Vector2i(x, y));
+        }
+      }
+    }
+    break;
   }
 }
