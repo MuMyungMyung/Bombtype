@@ -75,8 +75,8 @@ void MyWorld::loadGame(const std::string &filepath) {
   for (auto &entity : entities) {
     auto map = entity->getComponent<ecs::MapComponent>();
 
-    for (int y = 0; y < map->tiles.size(); y++) {
-      for (int x = 0; x < map->tiles[y].size(); x++) {
+    for (size_t y = 0; y < map->tiles.size(); y++) {
+      for (size_t x = 0; x < map->tiles[y].size(); x++) {
         if (map->tiles[y][x] == 0) {
           auto wallEntity = m_entityManager.createEntity();
           wallEntity->addComponent<ecs::CollisionComponent>();

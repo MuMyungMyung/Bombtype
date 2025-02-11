@@ -13,7 +13,7 @@ public:
   sf::Sprite sprite;
   sf::Texture texture;
   std::string texturePath;
-  SpriteComponent(const std::string &texturePath) : texturePath(texturePath) {
+  SpriteComponent(const std::string &texturePath) : texturePath(texturePath), sprite(texture) {
     if (!texture.loadFromFile(texturePath)) {
       throw std::runtime_error("Failed to load texture: " + texturePath);
     }

@@ -22,28 +22,48 @@ public:
       auto animation = entity->getComponent<AnimationComponent>();
 
       int radius = explosion->range;
-      auto nearbyEntities = getNearbyEntities(entityManager, position, radius);
+      /* auto nearbyEntities = getNearbyEntities(entityManager, position, radius); */
 
-      for (int y = position->position.y - 1; y > position->position.y - radius && y > 0; y--) {
-        if (drawExplosionTile(window, sprite, animation, nearbyEntities, sf::Vector2i(position->position.x, y),
-                              Direction::UP))
-          break;
-      }
-      for (int y = position->position.y + 1; y < position->position.y + radius; y++) {
-        if (drawExplosionTile(window, sprite, animation, nearbyEntities, sf::Vector2i(position->position.x, y),
-                              Direction::DOWN))
-          break;
-      }
-      for (int x = position->position.x - 1; x > position->position.x - radius && x > 0; x--) {
-        if (drawExplosionTile(window, sprite, animation, nearbyEntities, sf::Vector2i(x, position->position.y),
-                              Direction::LEFT))
-          break;
-      }
-      for (int x = position->position.x + 1; x < position->position.x + radius; x++) {
-        if (drawExplosionTile(window, sprite, animation, nearbyEntities, sf::Vector2i(x, position->position.y),
-                              Direction::RIGHT))
-          break;
-      }
+      sprite->sprite.setPosition(sf::Vector2f(position->position.x * 32, position->position.y * 32));
+      sprite->sprite.setTextureRect(animation->frames.at("default"));
+      window.draw(sprite->sprite);
+
+      sprite->sprite.setPosition(sf::Vector2f((position->position.x - 1) * 32, position->position.y * 32));
+      sprite->sprite.setTextureRect(animation->frames.at("left"));
+      window.draw(sprite->sprite);
+
+      sprite->sprite.setPosition(sf::Vector2f((position->position.x + 1) * 32, position->position.y * 32));
+      sprite->sprite.setTextureRect(animation->frames.at("right"));
+      window.draw(sprite->sprite);
+
+      sprite->sprite.setPosition(sf::Vector2f(position->position.x * 32, (position->position.y - 1) * 32));
+      sprite->sprite.setTextureRect(animation->frames.at("up"));
+      window.draw(sprite->sprite);
+
+      sprite->sprite.setPosition(sf::Vector2f(position->position.x * 32, (position->position.y + 1) * 32));
+      sprite->sprite.setTextureRect(animation->frames.at("down"));
+      window.draw(sprite->sprite);
+      /* for (int y = position->position.y - 1; y > position->position.y - radius && y > 0; y--) { */
+      /*    */
+      /*   if (drawExplosionTile(window, sprite, animation, nearbyEntities, sf::Vector2i(position->position.x, y), */
+      /*                         Direction::UP)) */
+      /*     break; */
+      /* } */
+      /* for (int y = position->position.y + 1; y < position->position.y + radius; y++) { */
+      /*   if (drawExplosionTile(window, sprite, animation, nearbyEntities, sf::Vector2i(position->position.x, y), */
+      /*                         Direction::DOWN)) */
+      /*     break; */
+      /* } */
+      /* for (int x = position->position.x - 1; x > position->position.x - radius && x > 0; x--) { */
+      /*   if (drawExplosionTile(window, sprite, animation, nearbyEntities, sf::Vector2i(x, position->position.y), */
+      /*                         Direction::LEFT)) */
+      /*     break; */
+      /* } */
+      /* for (int x = position->position.x + 1; x < position->position.x + radius; x++) { */
+      /*   if (drawExplosionTile(window, sprite, animation, nearbyEntities, sf::Vector2i(x, position->position.y), */
+      /*                         Direction::RIGHT)) */
+      /*     break; */
+      /* } */
     }
   }
 
@@ -69,15 +89,14 @@ private:
       if (collision && collision->isSolid) {
         std::cout << "Drawing " << explosionEndString << " at " << position.x << ":" << position.y << std::endl;
         sprite->sprite.setTextureRect(animation->frames.at(explosionEndString));
-        sprite->sprite.setPosition(position.x * 32, position.y * 32);
+        sprite->sprite.setPosition(sf::Vector2f(position.x * 32, position.y * 32));
         window.draw(sprite->sprite);
         return true;
       }
     }
     std::string index = d == Direction::UP || d == Direction::DOWN ? "vertical" : "horizontal";
     sf::IntRect rect = animation->frames.at(index);
-    std::cout << index << " " << explosionEndString << std::endl;
-    sprite->sprite.setPosition(position.x * 32, position.y * 32);
+    sprite->sprite.setPosition(sf::Vector2f(position.x * 32, position.y * 32));
     sprite->sprite.setTextureRect(rect);
     window.draw(sprite->sprite);
     return false;

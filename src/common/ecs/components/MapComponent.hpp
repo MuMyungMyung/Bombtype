@@ -23,22 +23,24 @@ public:
 
   MapComponent(std::vector<std::vector<int>> tiles, std::vector<sf::IntRect> tileRects,
                const std::string &spriteSheetPath, int tileSize)
-      : tiles(tiles), tileRects(tileRects), tileSize(tileSize) {
-    renderTexture.create(tiles[0].size() * tileSize, tiles.size() * tileSize);
+      : tiles(tiles), tileRects(tileRects), tileSize(tileSize), sprite(spriteSheet) {
+    if (renderTexture.resize(sf::Vector2u(tiles[0].size() * tileSize, tiles.size() * tileSize)))
+      renderTexture.clear();
+
     bool result = spriteSheet.loadFromFile(spriteSheetPath);
     sprite.setTexture(spriteSheet);
     for (int y = 0; y < tiles.size(); y++) {
       for (int x = 0; x < tiles[y].size(); x++) {
         sprite.setTextureRect(tileRects[tiles[y][x]]);
-        sprite.setPosition(x * tileSize, y * tileSize);
+        sprite.setPosition(sf::Vector2f(x * tileSize, y * tileSize));
         renderTexture.draw(sprite);
       }
     }
     renderTexture.display();
     sf::IntRect reset;
     auto size = renderTexture.getTexture().getSize();
-    reset.width = size.x;
-    reset.height = size.y;
+    reset.size.x = size.x;
+    reset.size.y = size.y;
     sprite.setTextureRect(reset);
     sprite.setTexture(renderTexture.getTexture());
   }

@@ -22,11 +22,13 @@ public:
       auto position = entity->getComponent<TransformComponent>();
 
       auto animation = entity->getComponent<AnimationComponent>();
-      if (animation && !entity->getComponent<ExplosionComponent>()) {
+      if (animation && !entity->getComponent<ExplosionComponent>() && !entity->getComponent<BombComponent>()) {
         sprite->sprite.setTextureRect(animation->frames.at("default"));
       }
-      sprite->sprite.setPosition(position->position.x * 32, position->position.y * 32);
-      window.draw(sprite->sprite);
+      if (!entity->getComponent<ExplosionComponent>()) {
+        sprite->sprite.setPosition(sf::Vector2f(position->position.x * 32, position->position.y * 32));
+        window.draw(sprite->sprite);
+      }
     }
   }
 };

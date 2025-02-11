@@ -10,7 +10,7 @@
 
 int main(int argc, char *argv[]) {
 
-  sf::RenderWindow window(sf::VideoMode(800, 600), "BomberType");
+  sf::RenderWindow window(sf::VideoMode(sf::Vector2u(800, 600)), "BomberType");
   MyWorld world;
 
   // 16ms for ~60 updates per second
@@ -27,9 +27,8 @@ int main(int argc, char *argv[]) {
     return -1;
   }
   while (window.isOpen()) {
-    sf::Event event;
-    while (window.pollEvent(event)) {
-      if (event.type == sf::Event::Closed)
+    while (std::optional event = window.pollEvent()) {
+      if (event->is<sf::Event::Closed>())
         window.close();
       world.handleEvents(event);
     }

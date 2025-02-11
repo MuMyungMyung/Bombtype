@@ -9,7 +9,7 @@ class World {
 public:
   void updateSystems(float deltaTime);
 
-  void handleEvents(const sf::Event &event);
+  void handleEvents(std::optional<sf::Event> event);
 
   void render(sf::RenderWindow &window);
 

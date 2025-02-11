@@ -23,10 +23,10 @@ public:
         auto bombEntity = entityManager.createEntity();
         bombEntity->addComponent<BombComponent>(player->id);
         auto &animation = bombEntity->addComponent<AnimationComponent>();
-        animation.frames["default"] = sf::IntRect(0, 0, 32, 32);
-        animation.frames["bigwick"] = sf::IntRect(0, 32, 32, 32);
-        animation.frames["mediumwick"] = sf::IntRect(32, 0, 32, 32);
-        animation.frames["smallwick"] = sf::IntRect(32, 32, 32, 32);
+        animation.frames["default"] = sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(32, 32));
+        animation.frames["bigwick"] = sf::IntRect(sf::Vector2i(0, 32), sf::Vector2i(32, 32));
+        animation.frames["mediumwick"] = sf::IntRect(sf::Vector2i(32, 0), sf::Vector2i(32, 32));
+        animation.frames["smallwick"] = sf::IntRect(sf::Vector2i(32, 32), sf::Vector2i(32, 32));
         bombEntity->addComponent<SpriteComponent>(std::string("assets/bomb.png"));
         bombEntity->addComponent<TransformComponent>(position->position);
         input->placeBomb = false;
@@ -64,13 +64,13 @@ private:
     explosion->addComponent<TransformComponent>(position->position);
     explosion->addComponent<ExplosionComponent>();
     auto &animation = explosion->addComponent<AnimationComponent>();
-    animation.frames["default"] = sf::IntRect(0, 64, 32, 32);
-    animation.frames["up"] = sf::IntRect(32, 0, 32, 32);
-    animation.frames["down"] = sf::IntRect(32, 64, 32, 32);
-    animation.frames["left"] = sf::IntRect(32, 32, 32, 32);
-    animation.frames["right"] = sf::IntRect(64, 0, 32, 32);
-    animation.frames["vertical"] = sf::IntRect(0, 32, 32, 32);
-    animation.frames["horizontal"] = sf::IntRect(0, 0, 32, 32);
+    animation.frames["default"] = sf::IntRect(sf::Vector2i(64, 0), sf::Vector2i(32, 32));
+    animation.frames["up"] = sf::IntRect(sf::Vector2i(0, 32), sf::Vector2i(32, 32));
+    animation.frames["down"] = sf::IntRect(sf::Vector2i(64, 32), sf::Vector2i(32, 32));
+    animation.frames["left"] = sf::IntRect(sf::Vector2i(32, 32), sf::Vector2i(32, 32));
+    animation.frames["right"] = sf::IntRect(sf::Vector2i(0, 64), sf::Vector2i(32, 32));
+    animation.frames["vertical"] = sf::IntRect(sf::Vector2i(32, 0), sf::Vector2i(32, 32));
+    animation.frames["horizontal"] = sf::IntRect(sf::Vector2i(0, 0), sf::Vector2i(32, 32));
     auto sprite = explosion->addComponent<SpriteComponent>(std::string("assets/explosion.png"));
     sprite.sprite.setTextureRect(animation.frames.at("default"));
   }

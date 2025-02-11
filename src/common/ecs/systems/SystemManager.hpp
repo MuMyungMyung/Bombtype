@@ -34,7 +34,7 @@ public:
     }
   }
 
-  void handleEvents(EntityManager &entityManager, const sf::Event &event) {
+  void handleEvents(EntityManager &entityManager, std::optional<sf::Event> event) {
     for (auto &system : m_eventSystems) {
       system->handleEvent(entityManager, event);
     }

@@ -6,7 +6,7 @@ void World::updateSystems(float deltaTime) {
   m_systemManager.update(m_entityManager, deltaTime);
 }
 
-void World::handleEvents(const sf::Event &event) {
+void World::handleEvents(std::optional<sf::Event> event) {
   m_systemManager.handleEvents(m_entityManager, event);
 }
 
